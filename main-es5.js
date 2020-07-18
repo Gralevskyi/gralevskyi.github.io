@@ -1343,6 +1343,7 @@
                 }
                 RequestHeadersInterceptor.prototype.intercept = function (req, next) {
                     var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({ 'X-Requested-With': 'XMLHttpRequest' });
+                    headers = headers.append("Access-Control-Allow-Origin", "*");
                     var AuthToken = localStorage.getItem("auth_token");
                     if (req.method != 'GET') {
                         headers = headers.append('Content-type', 'application/json');
@@ -1357,9 +1358,11 @@
                             headers = headers.append("Authorization", "Bearer_" + AuthToken);
                         }
                     }
+                    /*
                     else {
                         headers = headers.append("Access-Control-Allow-Origin", "*");
                     }
+                    */
                     var formedHeaders = req.clone({ headers: headers });
                     return next.handle(formedHeaders);
                 };

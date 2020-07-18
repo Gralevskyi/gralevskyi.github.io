@@ -1386,6 +1386,7 @@ let RequestHeadersInterceptor = class RequestHeadersInterceptor {
     }
     intercept(req, next) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({ 'X-Requested-With': 'XMLHttpRequest' });
+        headers = headers.append("Access-Control-Allow-Origin", "*");
         const AuthToken = localStorage.getItem("auth_token");
         if (req.method != 'GET') {
             headers = headers.append('Content-type', 'application/json');
@@ -1400,9 +1401,11 @@ let RequestHeadersInterceptor = class RequestHeadersInterceptor {
                 headers = headers.append("Authorization", "Bearer_" + AuthToken);
             }
         }
+        /*
         else {
             headers = headers.append("Access-Control-Allow-Origin", "*");
         }
+        */
         const formedHeaders = req.clone({ headers });
         return next.handle(formedHeaders);
     }
