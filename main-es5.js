@@ -749,7 +749,7 @@
                 function AppService(http, router) {
                     this.http = http;
                     this.router = router;
-                    this.serverAdress = "https://cors-anywhere.herokuapp.com/http://resttextparser.us-east-2.elasticbeanstalk.com";
+                    this.serverAdress = "https://cors-anywhere.herokuapp.com/http://textpars.us-east-2.elasticbeanstalk.com";
                     if (localStorage.getItem('auth_token') == null) {
                         this.authenticated = false;
                     }
@@ -1343,7 +1343,6 @@
                 }
                 RequestHeadersInterceptor.prototype.intercept = function (req, next) {
                     var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({ 'X-Requested-With': 'XMLHttpRequest' });
-                    headers = headers.append("Access-Control-Allow-Origin", "*");
                     var AuthToken = localStorage.getItem("auth_token");
                     if (req.method != 'GET') {
                         headers = headers.append('Content-type', 'application/json');
@@ -1358,11 +1357,9 @@
                             headers = headers.append("Authorization", "Bearer_" + AuthToken);
                         }
                     }
-                    /*
                     else {
                         headers = headers.append("Access-Control-Allow-Origin", "*");
                     }
-                    */
                     var formedHeaders = req.clone({ headers: headers });
                     return next.handle(formedHeaders);
                 };

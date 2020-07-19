@@ -717,7 +717,7 @@ let AppService = class AppService {
     constructor(http, router) {
         this.http = http;
         this.router = router;
-        this.serverAdress = "https://cors-anywhere.herokuapp.com/http://resttextparser.us-east-2.elasticbeanstalk.com";
+        this.serverAdress = "https://cors-anywhere.herokuapp.com/http://textpars.us-east-2.elasticbeanstalk.com";
         if (localStorage.getItem('auth_token') == null) {
             this.authenticated = false;
         }
@@ -1386,7 +1386,6 @@ let RequestHeadersInterceptor = class RequestHeadersInterceptor {
     }
     intercept(req, next) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({ 'X-Requested-With': 'XMLHttpRequest' });
-        headers = headers.append("Access-Control-Allow-Origin", "*");
         const AuthToken = localStorage.getItem("auth_token");
         if (req.method != 'GET') {
             headers = headers.append('Content-type', 'application/json');
@@ -1401,11 +1400,9 @@ let RequestHeadersInterceptor = class RequestHeadersInterceptor {
                 headers = headers.append("Authorization", "Bearer_" + AuthToken);
             }
         }
-        /*
         else {
             headers = headers.append("Access-Control-Allow-Origin", "*");
         }
-        */
         const formedHeaders = req.clone({ headers });
         return next.handle(formedHeaders);
     }
